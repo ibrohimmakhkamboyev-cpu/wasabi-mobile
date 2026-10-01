@@ -1,0 +1,416 @@
+<html lang="ru">
+
+  <head>
+    <script>
+      window.FontAwesomeConfig = {
+        autoReplaceSvg: 'nest'
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Акции - Wasabigo 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme:
+        {
+          extend:
+          {
+            colors:
+            {
+              primary: '#678F07',
+              secondary: '#E98F01',
+              dark: '#141414',
+              light: '#FAFAFA',
+              bg: '#FFFADD',
+            },
+            fontFamily:
+            {
+              sans: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+      body
+      {
+        font-family: 'Inter', sans-serif;
+        background-color: #FFFADD;
+        color: #141414;
+      }
+
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      .hide-scrollbar::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      .hide-scrollbar
+      {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Drawer styles */
+      #mobile-drawer
+      {
+        transform: translateX(-105%);
+        transition: transform 0.42s cubic-bezier(.2,.8,.2,1);
+      }
+
+      #mobile-drawer.open
+      {
+        transform: translateX(0);
+      }
+
+      #drawer-overlay
+      {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.32s ease;
+      }
+
+      #drawer-overlay.open
+      {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .drawer-link
+      {
+        transform: translateX(-18px);
+        opacity: 0;
+        transition: transform 0.34s cubic-bezier(.2,.8,.2,1), opacity 0.34s ease, background-color 0.2s ease, color 0.2s ease;
+      }
+
+      #mobile-drawer.open .drawer-link
+      {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .drawer-link:nth-child(1) { transition-delay: 70ms; }
+      .drawer-link:nth-child(2) { transition-delay: 105ms; }
+      .drawer-link:nth-child(3) { transition-delay: 140ms; }
+      .drawer-link:nth-child(4) { transition-delay: 175ms; }
+      .drawer-link:nth-child(5) { transition-delay: 210ms; }
+      .drawer-link:nth-child(6) { transition-delay: 245ms; }
+      .drawer-link:nth-child(7) { transition-delay: 280ms; }
+      .drawer-link:nth-child(8) { transition-delay: 315ms; }
+      .drawer-link:nth-child(9) { transition-delay: 350ms; }
+
+      .drawer-card
+      {
+        transform: translateY(16px);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(.2,.8,.2,1) 360ms, opacity 0.4s ease 360ms;
+      }
+
+      #mobile-drawer.open .drawer-card
+      {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    </style>
+    <style data-grapesjs-styles="true">
+      #mobile-drawer
+      {
+        transform: translateX(-105%);
+        transition-behavior: normal;
+        transition-duration: 0.42s;
+        transition-timing-function: cubic-bezier(.2,.8,.2,1);
+        transition-delay: 0s;
+        transition-property: transform;
+      }
+
+      #drawer-overlay
+      {
+        opacity: 0;
+        pointer-events: none;
+        transition-behavior: normal;
+        transition-duration: 0.32s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        transition-property: opacity;
+      }
+    </style>
+  </head>
+
+  <body
+    class="antialiased min-h-screen flex flex-col relative bg-bg pb-20 lg:pb-0">
+    <!-- Top Navigation Header -->
+    <header id="header"
+      class="sticky top-0 z-40 bg-bg/90 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-primary/10">
+      <div class="flex items-center gap-3"><button id="menu-btn"
+          class="w-10 h-10 rounded-xl bg-white border border-gray-200/60 flex items-center justify-center text-dark hover:bg-gray-50 transition-colors shadow-sm lg:hidden"><i
+            class="fa-solid fa-bars"></i></button>
+        <div class="text-lg font-bold tracking-tight text-primary">WASABI SUSHI
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div
+          class="hidden lg:flex items-center gap-1 bg-white px-3 py-1.5 rounded-full border border-gray-200/60 shadow-sm mr-4 cursor-pointer hover:bg-gray-50 transition-colors">
+          <i class="fa-solid fa-location-dot text-primary text-sm"></i><span
+            class="text-sm font-medium">ул. Амира Темура, 14</span><i
+            class="fa-solid fa-chevron-down text-xs text-dark/50 ml-1"></i>
+        </div><button
+          class="w-10 h-10 rounded-xl bg-white border border-gray-200/60 flex items-center justify-center text-dark hover:bg-gray-50 transition-colors shadow-sm"><i
+            class="fa-regular fa-bell"></i></button>
+      </div>
+    </header><!-- Drawer Navigation (Mobile & Tablet) -->
+    <div id="drawer-overlay" class="fixed inset-0 bg-dark/55 backdrop-blur-[2px] z-50 lg:hidden">
+    </div>
+    <div id="mobile-drawer"
+      class="fixed top-0 left-0 h-full w-[88vw] max-w-[340px] bg-bg z-50 shadow-2xl flex flex-col lg:hidden rounded-r-[28px] overflow-hidden">
+      <div class="p-4">
+        <div
+          class="rounded-[24px] bg-gradient-to-br from-white to-primary/10 border border-white shadow-xl shadow-dark/5 px-4 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-3"><img src="../logo.png"
+              onerror="this.style.display='none'"
+              class="w-12 h-12 rounded-2xl object-cover shadow-sm">
+            <div>
+              <div class="text-lg font-black tracking-tight text-primary leading-none">
+                WASABI SUSHI</div>
+              <div class="text-xs font-semibold text-dark/45 mt-1">Fresh sushi</div>
+            </div>
+          </div><button id="close-drawer-btn"
+            class="w-11 h-11 rounded-full bg-dark/5 flex items-center justify-center text-dark hover:bg-primary hover:text-white transition-all active:scale-95"><i
+              class="fa-solid fa-xmark text-xl"></i></button>
+        </div>
+      </div>
+      <div class="px-4 pb-3 flex-1 overflow-y-auto hide-scrollbar">
+        <nav class="flex flex-col gap-2"><a href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-primary text-white font-black shadow-lg shadow-primary/25"><span
+              class="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center"><i
+                class="fa-solid fa-house text-lg"></i></span><span class="flex-1">Asosiy</span><i
+              class="fa-solid fa-chevron-right text-white/80 text-sm"></i></a><a href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-utensils text-lg"></i></span><span>Menyu</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-bag-shopping text-lg"></i></span><span class="flex-1">Savat</span><span
+              class="min-w-7 h-7 px-2 rounded-full bg-secondary text-white text-xs flex items-center justify-center">0</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-receipt text-lg"></i></span><span>Buyurtmalar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-tag text-lg"></i></span><span>Aksiyalar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-shop text-lg"></i></span><span>Filiallar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-headset text-lg"></i></span><span>Aloqa</span></a>
+        </nav>
+      </div>
+    </div><!-- Main Content Area -->
+    <div class="flex-1 flex w-full max-w-7xl mx-auto">
+      <!-- Desktop Sidebar (Hidden on Mobile) -->
+      <aside
+        class="hidden lg:flex flex-col w-64 bg-white/50 backdrop-blur-sm border-r border-primary/10 sticky top-[65px] h-[calc(100vh-65px)]">
+        <nav class="flex-1 overflow-y-auto p-4 flex flex-col gap-1"><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-house w-5 text-center"></i><span>Главная</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-bars-staggered w-5 text-center"></i><span>Каталог</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-magnifying-glass w-5 text-center"></i><span>Поиск</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-bag-shopping w-5 text-center"></i><span>Корзина</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-receipt w-5 text-center"></i><span>Мои
+              заказы</span></a><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white font-medium shadow-md shadow-primary/20"><i
+              class="fa-solid fa-tag w-5 text-center"></i><span>Акции</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-shop w-5 text-center"></i><span>Филиалы</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-regular fa-user w-5 text-center"></i><span>Профиль</span></a>
+          <div class="h-px bg-primary/10 my-2"></div><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark/70 hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-shield-halved w-5 text-center"></i><span>Админ-панель</span></a>
+        </nav>
+      </aside><!-- Main Content (Promotions) -->
+      <main class="flex-1 flex flex-col p-4 lg:p-8 w-full max-w-4xl mx-auto">
+        <div class="mb-6">
+          <h1 class="text-2xl lg:text-3xl font-bold text-dark mb-2">Акции и
+            промокоды</h1>
+          <p class="text-dark/60 text-sm">Специальные предложения для вас</p>
+        </div><!-- Promo Codes Input -->
+        <div
+          class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-8 flex gap-2">
+          <input type="text" placeholder="Введите промокод"
+            class="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-primary transition-colors text-sm"><button
+            class="bg-primary text-white px-6 py-3 rounded-xl font-medium text-sm hover:bg-primary/90 transition-colors">
+            Применить
+          </button></div><!-- Active Promotions List -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Promo Card 1 -->
+          <div
+            class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group flex flex-col">
+            <div class="h-48 overflow-hidden relative">
+              <div
+                class="absolute top-3 left-3 bg-secondary text-white text-xs font-bold px-3 py-1.5 rounded-lg z-10 shadow-sm">
+                До 31 октября</div><img
+                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_415f3a0994_3b99912066c61eb6.png"
+                alt="premium large sushi set platter, high quality food photography"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+              <h3 class="text-lg font-bold text-dark mb-2">Скидка 20% на все
+                сеты</h3>
+              <p class="text-sm text-dark/60 mb-4 flex-1">При заказе от 300 000
+                сум получите скидку 20% на любой сет из нашего меню. Акция
+                действует каждый день с 12:00 до 16:00.</p>
+              <div
+                class="flex items-center justify-between pt-4 border-t border-gray-100">
+                <span
+                  class="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">SETS20</span><button
+                  class="text-primary text-sm font-semibold hover:underline">Подробнее</button>
+              </div>
+            </div>
+          </div><!-- Promo Card 2 -->
+          <div
+            class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group flex flex-col">
+            <div class="h-48 overflow-hidden relative">
+              <div
+                class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-lg z-10 shadow-sm">
+                Новинка</div><img
+                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_f4c9c1b970_a29815efc9f809a4.png"
+                alt="premium fresh poke bowls assortment, healthy food styling"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+              <h3 class="text-lg font-bold text-dark mb-2">1+1=3 на новые поке
+              </h3>
+              <p class="text-sm text-dark/60 mb-4 flex-1">Закажите два любых
+                поке-боула и получите третий (меньшей стоимости) в подарок!
+                Отличный повод попробовать новинки.</p>
+              <div
+                class="flex items-center justify-between pt-4 border-t border-gray-100">
+                <span
+                  class="text-xs font-medium text-dark/50 bg-gray-100 px-3 py-1 rounded-full">Автоматически</span><button
+                  class="text-primary text-sm font-semibold hover:underline">В
+                  каталог</button></div>
+            </div>
+          </div><!-- Promo Card 3 -->
+          <div
+            class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group flex flex-col">
+            <div class="h-48 overflow-hidden relative"><img
+                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_c9b4e727e0_d89e5bb33b2ec63c.png"
+                alt="refreshing premium cold drinks, cocktails, food photography"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+              <h3 class="text-lg font-bold text-dark mb-2">Бесплатный напиток
+              </h3>
+              <p class="text-sm text-dark/60 mb-4 flex-1">При первом заказе
+                через приложение дарим фирменный лимонад 0.5л в подарок. Просто
+                добавьте его в корзину.</p>
+              <div
+                class="flex items-center justify-between pt-4 border-t border-gray-100">
+                <span
+                  class="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">WELCOME</span><button
+                  class="text-primary text-sm font-semibold hover:underline">Применить</button>
+              </div>
+            </div>
+          </div><!-- Promo Card 4 -->
+          <div
+            class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow group flex flex-col">
+            <div class="h-48 overflow-hidden relative">
+              <div
+                class="absolute top-3 left-3 bg-secondary text-white text-xs font-bold px-3 py-1.5 rounded-lg z-10 shadow-sm">
+                Только самовывоз</div><img
+                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_7ba3e259bb_bad76eed885a3362.png"
+                alt="premium salmon philadelphia sushi roll piece, macro photography, dark background"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="p-5 flex-1 flex flex-col">
+              <h3 class="text-lg font-bold text-dark mb-2">-15% при самовывозе
+              </h3>
+              <p class="text-sm text-dark/60 mb-4 flex-1">Забирайте заказ
+                самостоятельно из любого филиала и получайте скидку 15% на всю
+                корзину. Не суммируется с другими акциями.</p>
+              <div
+                class="flex items-center justify-between pt-4 border-t border-gray-100">
+                <span
+                  class="text-xs font-medium text-dark/50 bg-gray-100 px-3 py-1 rounded-full">Без
+                  промокода</span><button
+                  class="text-primary text-sm font-semibold hover:underline">Подробнее</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div><!-- Mobile Bottom Navigation -->
+    <nav
+      class="fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around items-center pb-safe pt-2 px-2 z-40 lg:hidden shadow-[0_-4px_10px_rgba(0,0,0,0.02)]">
+      <a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-solid fa-house text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Главная</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-solid fa-bars-staggered text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Каталог</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors relative">
+        <div class="relative"><i
+            class="fa-solid fa-bag-shopping text-xl mb-1"></i><span
+            class="absolute -top-1 -right-2 w-4 h-4 bg-secondary text-white text-[9px] font-bold flex items-center justify-center rounded-full border-2 border-white">3</span>
+        </div><span class="text-[10px] font-medium">Корзина</span>
+      </a><a href="#"
+        class="flex flex-col items-center p-2 text-primary transition-colors"><i
+          class="fa-solid fa-tag text-xl mb-1"></i><span
+          class="text-[10px] font-bold">Акции</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-regular fa-user text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Профиль</span></a></nav>
+    <script>
+      // Drawer Logic
+      const menuBtn = document.getElementById('menu-btn');
+      const closeDrawerBtn = document.getElementById('close-drawer-btn');
+      const drawer = document.getElementById('mobile-drawer');
+      const overlay = document.getElementById('drawer-overlay');
+
+      function toggleDrawer()
+      {
+        drawer.classList.toggle('open');
+        overlay.classList.toggle('open');
+        document.body.style.overflow = drawer.classList.contains('open') ?
+          'hidden' : '';
+      }
+
+      if (menuBtn) menuBtn.addEventListener('click', toggleDrawer);
+      if (closeDrawerBtn) closeDrawerBtn.addEventListener('click',
+      toggleDrawer);
+      if (overlay) overlay.addEventListener('click', toggleDrawer);
+    </script>
+  </body>
+
+</html>

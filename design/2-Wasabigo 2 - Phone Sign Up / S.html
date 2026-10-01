@@ -1,0 +1,138 @@
+<html lang="ru">
+
+  <head>
+    <script>
+      window.FontAwesomeConfig = {
+        autoReplaceSvg: 'nest'
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Phone Sign Up - Wasabigo 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme:
+        {
+          extend:
+          {
+            colors:
+            {
+              primary: '#678F07',
+              secondary: '#E98F01',
+              dark: '#141414',
+              light: '#FAFAFA',
+              bg: '#FFFADD',
+            },
+            fontFamily:
+            {
+              sans: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+      body
+      {
+        font-family: 'Inter', sans-serif;
+        background-color: #FFFADD;
+        color: #141414;
+      }
+
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      /* Custom input placeholder styling for better premium feel */
+      input::placeholder
+      {
+        color: #141414;
+        opacity: 0.3;
+      }
+    </style>
+  </head>
+
+  <body
+    class="antialiased min-h-screen flex flex-col relative overflow-hidden bg-bg">
+    <!-- Decorative Background Elements -->
+    <div
+      class="absolute top-[-10%] left-[-10%] w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none">
+    </div>
+    <div
+      class="absolute top-[40%] right-[-15%] w-72 h-72 bg-secondary/5 rounded-full blur-3xl pointer-events-none">
+    </div>
+    <main id="auth-screen"
+      class="w-full max-w-md mx-auto flex flex-col h-[100dvh] relative z-10 px-6">
+      <!-- Header -->
+      <header id="header" class="pt-12 pb-6 flex items-center justify-between">
+        <button
+          class="w-12 h-12 rounded-2xl bg-white border border-gray-200/60 flex items-center justify-center text-dark hover:bg-gray-50 transition-colors shadow-sm"><i
+            class="fa-solid fa-chevron-left text-lg"></i></button>
+        <div
+          class="text-sm font-semibold tracking-widest uppercase text-dark/40">
+          WASABI SUSHI</div>
+        <div class="w-12 h-12"></div> <!-- Spacer for centering -->
+      </header><!-- Main Content -->
+      <div class="flex-1 flex flex-col pt-8">
+        <div class="mb-10">
+          <h1 class="text-3xl font-bold text-dark mb-3 tracking-tight">Ваш номер
+            <br>телефона</h1>
+          <p class="text-dark/60 text-sm leading-relaxed">
+            Введите номер телефона для входа в личный кабинет или регистрации
+            нового аккаунта.
+          </p>
+        </div><!-- Phone Input Component -->
+        <div id="phone-input-block" class="relative mb-8">
+          <div
+            class="flex items-center bg-white rounded-2xl border-2 border-transparent focus-within:border-primary/30 focus-within:shadow-[0_0_0_4px_rgba(103,143,7,0.1)] transition-all duration-300 overflow-hidden shadow-sm h-16">
+            <!-- Country Code Selector --><button
+              class="flex items-center gap-2 pl-5 pr-4 h-full bg-white hover:bg-gray-50 transition-colors border-r border-gray-100 relative group"><span
+                class="text-2xl leading-none">🇺🇿</span><span
+                class="font-semibold text-dark text-lg">+998</span><i
+                class="fa-solid fa-angle-down text-sm text-dark/40 ml-1 group-hover:text-dark/70 transition-colors"></i></button>
+            <!-- Input --><input type="tel" placeholder="00 000 00 00"
+              autocomplete="tel-national"
+              class="flex-1 h-full px-4 text-xl font-semibold text-dark outline-none bg-transparent w-full tracking-wide">
+          </div>
+        </div><!-- Bottom Action Area -->
+        <div class="mt-auto pb-10 flex flex-col gap-5"><button
+            class="w-full bg-primary hover:bg-primary/90 active:scale-[0.98] text-light py-4 rounded-2xl font-semibold text-lg transition-all duration-200 shadow-lg shadow-primary/25 flex items-center justify-center gap-2">
+            Получить код
+            <i
+              class="fa-solid fa-arrow-right text-sm opacity-80 ml-1"></i></button>
+          <p class="text-center text-xs text-dark/50 leading-relaxed px-4">
+            Продолжая, вы соглашаетесь с нашими <br><a href="#"
+              class="text-primary font-medium hover:underline">Правилами
+              сервиса</a> и
+            <a href="#"
+              class="text-primary font-medium hover:underline">Политикой
+              конфиденциальности</a>
+          </p>
+        </div>
+      </div>
+    </main>
+    <script>
+      // Simple script to format phone number as user types (visual only)
+      document.querySelector('input[type="tel"]').addEventListener('input',
+        function(e)
+        {
+          let x = e.target.value.replace(/\D/g, '').match(
+            /(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
+          e.target.value = !x[2] ? x[1] : '' + x[1] + ' ' + x[2] + (x[3] ?
+            ' ' + x[3] : '') + (x[4] ? ' ' + x[4] : '');
+        });
+    </script>
+  </body>
+
+</html>

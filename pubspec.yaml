@@ -1,0 +1,37 @@
+name: wasabi_mobile
+description: Wasabi Sushi mobile application.
+publish_to: "none"
+version: 1.0.7+10018
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  firebase_core: ^4.1.1
+  firebase_messaging: ^16.0.1
+  http: ^1.4.0
+  image: ^4.9.1
+  intl: ^0.20.2
+  flutter_map: ^8.3.1
+  latlong2: ^0.10.1
+  yandex_maps_mapkit_lite: ^4.45.0
+  flutter_local_notifications: ^22.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - logo.png
+    - assets/images/wasabi_brand_logo.png
+    - assets/images/welcome_sushi.jpg
+    - assets/images/click_logo.png
+    - assets/images/payme_logo.png

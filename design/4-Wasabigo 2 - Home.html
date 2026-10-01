@@ -1,0 +1,553 @@
+<html lang="ru">
+
+  <head>
+    <script>
+      window.FontAwesomeConfig = {
+        autoReplaceSvg: 'nest'
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Главная - Wasabigo 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme:
+        {
+          extend:
+          {
+            colors:
+            {
+              primary: '#678F07',
+              secondary: '#E98F01',
+              dark: '#141414',
+              light: '#FAFAFA',
+              bg: '#FFFADD',
+            },
+            fontFamily:
+            {
+              sans: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+      body
+      {
+        font-family: 'Inter', sans-serif;
+        background-color: #FFFADD;
+        color: #141414;
+      }
+
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      .hide-scrollbar::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      .hide-scrollbar
+      {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Drawer styles */
+      #mobile-drawer
+      {
+        transform: translateX(-105%);
+        transition: transform 0.42s cubic-bezier(.2,.8,.2,1);
+      }
+
+      #mobile-drawer.open
+      {
+        transform: translateX(0);
+      }
+
+      #drawer-overlay
+      {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.32s ease;
+      }
+
+      #drawer-overlay.open
+      {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .drawer-link
+      {
+        transform: translateX(-18px);
+        opacity: 0;
+        transition: transform 0.34s cubic-bezier(.2,.8,.2,1), opacity 0.34s ease, background-color 0.2s ease, color 0.2s ease;
+      }
+
+      #mobile-drawer.open .drawer-link
+      {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .drawer-link:nth-child(1) { transition-delay: 70ms; }
+      .drawer-link:nth-child(2) { transition-delay: 105ms; }
+      .drawer-link:nth-child(3) { transition-delay: 140ms; }
+      .drawer-link:nth-child(4) { transition-delay: 175ms; }
+      .drawer-link:nth-child(5) { transition-delay: 210ms; }
+      .drawer-link:nth-child(6) { transition-delay: 245ms; }
+      .drawer-link:nth-child(7) { transition-delay: 280ms; }
+      .drawer-link:nth-child(8) { transition-delay: 315ms; }
+      .drawer-link:nth-child(9) { transition-delay: 350ms; }
+
+      .drawer-card
+      {
+        transform: translateY(16px);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(.2,.8,.2,1) 360ms, opacity 0.4s ease 360ms;
+      }
+
+      #mobile-drawer.open .drawer-card
+      {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    </style>
+    <style data-grapesjs-styles="true">
+      #mobile-drawer
+      {
+        transform: translateX(-105%);
+        transition-behavior: normal;
+        transition-duration: 0.42s;
+        transition-timing-function: cubic-bezier(.2,.8,.2,1);
+        transition-delay: 0s;
+        transition-property: transform;
+      }
+
+      #drawer-overlay
+      {
+        opacity: 0;
+        pointer-events: none;
+        transition-behavior: normal;
+        transition-duration: 0.32s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        transition-property: opacity;
+      }
+    </style>
+  </head>
+
+  <body
+    class="antialiased min-h-screen flex flex-col relative bg-bg pb-20 lg:pb-0">
+    <!-- Top Navigation Header -->
+    <header id="header"
+      class="sticky top-0 z-40 bg-bg/90 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-primary/10">
+      <div class="flex items-center gap-3"><button id="menu-btn"
+          class="w-10 h-10 rounded-xl bg-white border border-gray-200/60 flex items-center justify-center text-dark hover:bg-gray-50 transition-colors shadow-sm lg:hidden"><i
+            class="fa-solid fa-bars"></i></button>
+        <div class="text-lg font-bold tracking-tight text-primary">WASABI SUSHI
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div
+          class="hidden lg:flex items-center gap-1 bg-white px-3 py-1.5 rounded-full border border-gray-200/60 shadow-sm mr-4">
+          <i class="fa-solid fa-location-dot text-primary text-sm"></i><span
+            class="text-sm font-medium">ул. Амира Темура, 14</span><i
+            class="fa-solid fa-chevron-down text-xs text-dark/50 ml-1"></i>
+        </div><button
+          class="w-10 h-10 rounded-xl bg-white border border-gray-200/60 flex items-center justify-center text-dark hover:bg-gray-50 transition-colors shadow-sm"><i
+            class="fa-regular fa-bell"></i></button>
+      </div>
+    </header><!-- Drawer Navigation (Mobile & Tablet) -->
+    <div id="drawer-overlay" class="fixed inset-0 bg-dark/55 backdrop-blur-[2px] z-50 lg:hidden">
+    </div>
+    <div id="mobile-drawer"
+      class="fixed top-0 left-0 h-full w-[88vw] max-w-[340px] bg-bg z-50 shadow-2xl flex flex-col lg:hidden rounded-r-[28px] overflow-hidden">
+      <div class="p-4">
+        <div
+          class="rounded-[24px] bg-gradient-to-br from-white to-primary/10 border border-white shadow-xl shadow-dark/5 px-4 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-3"><img src="../logo.png"
+              onerror="this.style.display='none'"
+              class="w-12 h-12 rounded-2xl object-cover shadow-sm">
+            <div>
+              <div class="text-lg font-black tracking-tight text-primary leading-none">
+                WASABI SUSHI</div>
+              <div class="text-xs font-semibold text-dark/45 mt-1">Fresh sushi</div>
+            </div>
+          </div><button id="close-drawer-btn"
+            class="w-11 h-11 rounded-full bg-dark/5 flex items-center justify-center text-dark hover:bg-primary hover:text-white transition-all active:scale-95"><i
+              class="fa-solid fa-xmark text-xl"></i></button>
+        </div>
+      </div>
+      <div class="px-4 pb-3 flex-1 overflow-y-auto hide-scrollbar">
+        <nav class="flex flex-col gap-2"><a href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-primary text-white font-black shadow-lg shadow-primary/25"><span
+              class="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center"><i
+                class="fa-solid fa-house text-lg"></i></span><span class="flex-1">Asosiy</span><i
+              class="fa-solid fa-chevron-right text-white/80 text-sm"></i></a><a href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-utensils text-lg"></i></span><span>Menyu</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-bag-shopping text-lg"></i></span><span class="flex-1">Savat</span><span
+              class="min-w-7 h-7 px-2 rounded-full bg-secondary text-white text-xs flex items-center justify-center">0</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-receipt text-lg"></i></span><span>Buyurtmalar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-tag text-lg"></i></span><span>Aksiyalar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-shop text-lg"></i></span><span>Filiallar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-headset text-lg"></i></span><span>Aloqa</span></a>
+        </nav>
+      </div>
+    </div><!-- Main Content Area -->
+    <div class="flex-1 flex w-full max-w-7xl mx-auto">
+      <!-- Desktop Sidebar (Hidden on Mobile) -->
+      <aside
+        class="hidden lg:flex flex-col w-64 bg-white/50 backdrop-blur-sm border-r border-primary/10 sticky top-[65px] h-[calc(100vh-65px)]">
+        <nav class="flex-1 overflow-y-auto p-4 flex flex-col gap-1"><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white font-medium shadow-md shadow-primary/20"><i
+              class="fa-solid fa-house w-5 text-center"></i><span>Главная</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-bars-staggered w-5 text-center"></i><span>Каталог</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-magnifying-glass w-5 text-center"></i><span>Поиск</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors">
+            <div class="relative"><i
+                class="fa-solid fa-bag-shopping w-5 text-center"></i><span
+                class="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full border border-white"></span>
+            </div><span>Корзина</span>
+          </a><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-receipt w-5 text-center"></i><span>Мои
+              заказы</span></a><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-tag w-5 text-center text-secondary"></i><span>Акции</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-shop w-5 text-center"></i><span>Филиалы</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-regular fa-user w-5 text-center"></i><span>Профиль</span></a>
+          <div class="h-px bg-primary/10 my-2"></div><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark/70 hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-shield-halved w-5 text-center"></i><span>Админ-панель</span></a>
+        </nav>
+      </aside><!-- Main Content Feed -->
+      <main class="flex-1 flex flex-col overflow-x-hidden p-4 lg:p-8">
+        <!-- Mobile Delivery Address Pill -->
+        <div
+          class="lg:hidden flex items-center justify-between bg-white px-4 py-3 rounded-2xl shadow-sm mb-6 border border-gray-100">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+              <i class="fa-solid fa-location-dot"></i></div>
+            <div class="flex flex-col"><span
+                class="text-xs text-dark/50 font-medium">Доставка по
+                адресу</span><span
+                class="text-sm font-semibold text-dark truncate max-w-[180px]">ул.
+                Амира Темура, 14</span></div>
+          </div><i class="fa-solid fa-chevron-right text-dark/30 text-sm"></i>
+        </div><!-- Promo Banners Slider -->
+        <section id="promo-banners" class="mb-8">
+          <div
+            class="flex overflow-x-auto hide-scrollbar gap-4 pb-2 -mx-4 px-4 lg:mx-0 lg:px-0 snap-x snap-mandatory">
+            <!-- Banner 1 -->
+            <div
+              class="min-w-[280px] lg:min-w-[400px] h-40 lg:h-48 rounded-2xl overflow-hidden relative snap-center shrink-0 shadow-sm">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-dark/80 to-transparent z-10 p-5 flex flex-col justify-between">
+                <div><span
+                    class="bg-secondary text-white text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">АКЦИЯ</span>
+                  <h3
+                    class="text-white font-bold text-lg lg:text-xl leading-tight max-w-[200px]">
+                    Сет "Филадельфия" со скидкой 20%</h3>
+                </div><button
+                  class="bg-primary text-white text-sm font-medium px-4 py-2 rounded-xl w-max self-start shadow-md">Заказать</button>
+              </div>
+              <div class="w-full h-full"><img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_0738d6f45f_b15ebbe3f19cf061.png"
+                  alt="premium sushi set philadelphia platter, appetizing food photography, dark background"
+                  class="w-full h-full object-cover"></div>
+            </div><!-- Banner 2 -->
+            <div
+              class="min-w-[280px] lg:min-w-[400px] h-40 lg:h-48 rounded-2xl overflow-hidden relative snap-center shrink-0 shadow-sm">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/40 z-10 p-5 flex flex-col justify-between">
+                <div><span
+                    class="bg-white text-primary text-xs font-bold px-2 py-1 rounded-md mb-2 inline-block">НОВИНКА</span>
+                  <h3
+                    class="text-white font-bold text-lg lg:text-xl leading-tight max-w-[200px]">
+                    Поке боулы с лососем и тунцом</h3>
+                </div><button
+                  class="bg-white text-primary text-sm font-medium px-4 py-2 rounded-xl w-max self-start shadow-md">Попробовать</button>
+              </div>
+              <div class="w-full h-full"><img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_b3c2957d95_9c2d5a276f7f09bc.png"
+                  alt="fresh poke bowl with salmon and avocado, bright colorful food photography"
+                  class="w-full h-full object-cover"></div>
+            </div>
+          </div>
+        </section><!-- Categories -->
+        <section id="categories" class="mb-10">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-dark">Меню</h2><a href="#"
+              class="text-sm font-medium text-primary hover:underline">Все <i
+                class="fa-solid fa-chevron-right text-xs ml-1"></i></a>
+          </div>
+          <div
+            class="flex overflow-x-auto hide-scrollbar gap-3 pb-2 -mx-4 px-4 lg:mx-0 lg:px-0">
+            <button
+              class="flex flex-col items-center gap-2 min-w-[72px] shrink-0">
+              <div
+                class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-primary/20 flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_8e8174dce1_c9e2f7a166f74bd8.png"
+                  alt="premium sushi roll piece without background"
+                  class="w-12 h-12 object-contain"></div><span
+                class="text-xs font-semibold text-dark text-center">Роллы</span>
+            </button><button
+              class="flex flex-col items-center gap-2 min-w-[72px] shrink-0">
+              <div
+                class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-transparent flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_3fe965ce0b_19a2594d1cd3045a.png"
+                  alt="premium sushi set platter without background"
+                  class="w-12 h-12 object-contain"></div><span
+                class="text-xs font-medium text-dark/70 text-center">Сеты</span>
+            </button><button
+              class="flex flex-col items-center gap-2 min-w-[72px] shrink-0">
+              <div
+                class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-transparent flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_2d4a357566_28ca302b7de13255.png"
+                  alt="premium nigiri sushi without background"
+                  class="w-12 h-12 object-contain"></div><span
+                class="text-xs font-medium text-dark/70 text-center">Суши</span>
+            </button><button
+              class="flex flex-col items-center gap-2 min-w-[72px] shrink-0">
+              <div
+                class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-transparent flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_971c5d6e51_2505d1f08f596b95.png"
+                  alt="wok noodles box without background"
+                  class="w-12 h-12 object-contain"></div><span
+                class="text-xs font-medium text-dark/70 text-center">WOK</span>
+            </button><button
+              class="flex flex-col items-center gap-2 min-w-[72px] shrink-0">
+              <div
+                class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-transparent flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_67dbc09263_99e477c9bb71a8ef.png"
+                  alt="japanese soup bowl without background"
+                  class="w-12 h-12 object-contain"></div><span
+                class="text-xs font-medium text-dark/70 text-center">Супы</span>
+            </button><button
+              class="flex flex-col items-center gap-2 min-w-[72px] shrink-0">
+              <div
+                class="w-16 h-16 rounded-2xl bg-white shadow-sm border border-transparent flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_3ee539f61d_f93a7f7c6febea2e.png"
+                  alt="cold drink glass with ice without background"
+                  class="w-12 h-12 object-contain"></div><span
+                class="text-xs font-medium text-dark/70 text-center">Напитки</span>
+            </button></div>
+        </section><!-- Popular Items -->
+        <section id="popular-items" class="mb-10">
+          <h2 class="text-xl font-bold text-dark mb-4">Популярное</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Product Card 1 -->
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden relative">
+              <button
+                class="absolute top-3 right-3 z-10 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-dark/40 hover:text-secondary transition-colors"><i
+                  class="fa-regular fa-heart"></i></button>
+              <div
+                class="h-32 w-full p-2 bg-gray-50 flex items-center justify-center">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_8c735138c8_1f94fdd7a621ba34.png"
+                  alt="california sushi roll premium photo without background"
+                  class="w-full h-full object-contain"></div>
+              <div class="p-3 flex-1 flex flex-col">
+                <h3 class="font-bold text-sm text-dark mb-1 line-clamp-2">
+                  Калифорния с лососем</h3>
+                <p class="text-xs text-dark/50 mb-3 line-clamp-1">Лосось,
+                  авокадо, огурец, тобико</p>
+                <div class="mt-auto flex items-center justify-between"><span
+                    class="font-bold text-dark">55 000 <span
+                      class="text-xs font-normal">сум</span></span><button
+                    class="w-8 h-8 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-primary/90 transition-colors shadow-sm"><i
+                      class="fa-solid fa-plus"></i></button></div>
+              </div>
+            </div><!-- Product Card 2 (In Cart) -->
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-primary flex flex-col overflow-hidden relative">
+              <span
+                class="absolute top-3 left-3 z-10 bg-secondary text-white text-[10px] font-bold px-2 py-1 rounded-md">-15%</span>
+              <div
+                class="h-32 w-full p-2 bg-gray-50 flex items-center justify-center">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_58aa498d0d_6a3e691633a139af.png"
+                  alt="philadelphia sushi roll premium photo without background"
+                  class="w-full h-full object-contain"></div>
+              <div class="p-3 flex-1 flex flex-col">
+                <h3 class="font-bold text-sm text-dark mb-1 line-clamp-2">
+                  Филадельфия классик</h3>
+                <p class="text-xs text-dark/50 mb-3 line-clamp-1">Лосось, сыр
+                  креметте, рис</p>
+                <div class="mt-auto flex flex-col gap-2">
+                  <div class="flex items-center gap-2"><span
+                      class="font-bold text-secondary">68 000 <span
+                        class="text-xs font-normal">сум</span></span><span
+                      class="text-xs text-dark/40 line-through">80 000</span>
+                  </div>
+                  <div
+                    class="flex items-center justify-between bg-primary/10 rounded-xl p-1 border border-primary/20">
+                    <button
+                      class="w-7 h-7 bg-white text-primary rounded-lg flex items-center justify-center shadow-sm"><i
+                        class="fa-solid fa-minus text-xs"></i></button><span
+                      class="font-semibold text-primary text-sm w-6 text-center">1</span><button
+                      class="w-7 h-7 bg-primary text-white rounded-lg flex items-center justify-center shadow-sm"><i
+                        class="fa-solid fa-plus text-xs"></i></button></div>
+                </div>
+              </div>
+            </div><!-- Product Card 3 -->
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden relative">
+              <button
+                class="absolute top-3 right-3 z-10 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-dark/40 hover:text-secondary transition-colors"><i
+                  class="fa-regular fa-heart"></i></button>
+              <div
+                class="h-32 w-full p-2 bg-gray-50 flex items-center justify-center">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_98f0ac469c_6825c1d6b6c1c91f.png"
+                  alt="baked sushi roll with cheese and sauce without background"
+                  class="w-full h-full object-contain"></div>
+              <div class="p-3 flex-1 flex flex-col">
+                <h3 class="font-bold text-sm text-dark mb-1 line-clamp-2">
+                  Запеченный с угрем</h3>
+                <p class="text-xs text-dark/50 mb-3 line-clamp-1">Угорь, сыр,
+                  унаги соус</p>
+                <div class="mt-auto flex items-center justify-between"><span
+                    class="font-bold text-dark">75 000 <span
+                      class="text-xs font-normal">сум</span></span><button
+                    class="w-8 h-8 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-primary/90 transition-colors shadow-sm"><i
+                      class="fa-solid fa-plus"></i></button></div>
+              </div>
+            </div><!-- Product Card 4 -->
+            <div
+              class="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden relative">
+              <button
+                class="absolute top-3 right-3 z-10 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-dark/40 hover:text-secondary transition-colors"><i
+                  class="fa-regular fa-heart"></i></button>
+              <div
+                class="h-32 w-full p-2 bg-gray-50 flex items-center justify-center">
+                <img
+                  src="https://storage.googleapis.com/uxpilot-auth.appspot.com/gen_c7ac07941b_21bfabb7dad4abb0.png"
+                  alt="dragon sushi roll with avocado without background"
+                  class="w-full h-full object-contain"></div>
+              <div class="p-3 flex-1 flex flex-col">
+                <h3 class="font-bold text-sm text-dark mb-1 line-clamp-2">Дракон
+                </h3>
+                <p class="text-xs text-dark/50 mb-3 line-clamp-1">Угорь,
+                  авокадо, огурец, тобико</p>
+                <div class="mt-auto flex items-center justify-between"><span
+                    class="font-bold text-dark">85 000 <span
+                      class="text-xs font-normal">сум</span></span><button
+                    class="w-8 h-8 bg-primary text-white rounded-xl flex items-center justify-center hover:bg-primary/90 transition-colors shadow-sm"><i
+                      class="fa-solid fa-plus"></i></button></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div><!-- Quick Cart Banner (Floating bottom) -->
+    <div
+      class="fixed bottom-[72px] lg:bottom-6 left-4 right-4 lg:left-auto lg:right-8 lg:w-[320px] z-30">
+      <div
+        class="bg-dark text-white rounded-2xl p-4 shadow-xl shadow-dark/20 flex items-center justify-between cursor-pointer hover:bg-dark/95 transition-colors">
+        <div class="flex items-center gap-3">
+          <div
+            class="relative w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-bag-shopping text-lg"></i><span
+              class="absolute -top-1 -right-1 w-5 h-5 bg-primary text-white text-xs font-bold flex items-center justify-center rounded-full border-2 border-dark">1</span>
+          </div>
+          <div class="flex flex-col"><span
+              class="text-xs text-white/60 font-medium">Сумма заказа</span><span
+              class="font-bold">68 000 сум</span></div>
+        </div>
+        <div
+          class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-xl text-sm font-bold transition-colors">
+          Корзина
+        </div>
+      </div>
+    </div><!-- Mobile Bottom Navigation -->
+    <nav
+      class="fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around items-center pb-safe pt-2 px-2 z-40 lg:hidden shadow-[0_-4px_10px_rgba(0,0,0,0.02)]">
+      <a href="#" class="flex flex-col items-center p-2 text-primary"><i
+          class="fa-solid fa-house text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Главная</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-solid fa-bars-staggered text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Каталог</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors relative">
+        <div class="relative"><i
+            class="fa-solid fa-bag-shopping text-xl mb-1"></i><span
+            class="absolute -top-1 -right-2 w-4 h-4 bg-primary text-white text-[9px] font-bold flex items-center justify-center rounded-full border-2 border-white">1</span>
+        </div><span class="text-[10px] font-medium">Корзина</span>
+      </a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-solid fa-receipt text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Заказы</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-regular fa-user text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Профиль</span></a></nav>
+    <script>
+      // Drawer Logic
+      const menuBtn = document.getElementById('menu-btn');
+      const closeDrawerBtn = document.getElementById('close-drawer-btn');
+      const drawer = document.getElementById('mobile-drawer');
+      const overlay = document.getElementById('drawer-overlay');
+
+      function toggleDrawer()
+      {
+        drawer.classList.toggle('open');
+        overlay.classList.toggle('open');
+        document.body.style.overflow = drawer.classList.contains('open') ?
+          'hidden' : '';
+      }
+
+      menuBtn.addEventListener('click', toggleDrawer);
+      closeDrawerBtn.addEventListener('click', toggleDrawer);
+      overlay.addEventListener('click', toggleDrawer);
+    </script>
+  </body>
+
+</html>

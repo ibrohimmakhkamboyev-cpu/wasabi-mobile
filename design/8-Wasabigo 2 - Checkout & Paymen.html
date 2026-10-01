@@ -1,0 +1,523 @@
+<html lang="ru">
+
+  <head>
+    <script>
+      window.FontAwesomeConfig = {
+        autoReplaceSvg: 'nest'
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Оформление заказа - Wasabigo 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme:
+        {
+          extend:
+          {
+            colors:
+            {
+              primary: '#678F07',
+              secondary: '#E98F01',
+              dark: '#141414',
+              light: '#FAFAFA',
+              bg: '#FFFADD',
+            },
+            fontFamily:
+            {
+              sans: ['Inter', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+      body
+      {
+        font-family: 'Inter', sans-serif;
+        background-color: #FFFADD;
+        color: #141414;
+      }
+
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      .hide-scrollbar::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      .hide-scrollbar
+      {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      /* Drawer styles */
+      #mobile-drawer
+      {
+        transform: translateX(-105%);
+        transition: transform 0.42s cubic-bezier(.2,.8,.2,1);
+      }
+
+      #mobile-drawer.open
+      {
+        transform: translateX(0);
+      }
+
+      #drawer-overlay
+      {
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.32s ease;
+      }
+
+      #drawer-overlay.open
+      {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .drawer-link
+      {
+        transform: translateX(-18px);
+        opacity: 0;
+        transition: transform 0.34s cubic-bezier(.2,.8,.2,1), opacity 0.34s ease, background-color 0.2s ease, color 0.2s ease;
+      }
+
+      #mobile-drawer.open .drawer-link
+      {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .drawer-link:nth-child(1) { transition-delay: 70ms; }
+      .drawer-link:nth-child(2) { transition-delay: 105ms; }
+      .drawer-link:nth-child(3) { transition-delay: 140ms; }
+      .drawer-link:nth-child(4) { transition-delay: 175ms; }
+      .drawer-link:nth-child(5) { transition-delay: 210ms; }
+      .drawer-link:nth-child(6) { transition-delay: 245ms; }
+      .drawer-link:nth-child(7) { transition-delay: 280ms; }
+      .drawer-link:nth-child(8) { transition-delay: 315ms; }
+      .drawer-link:nth-child(9) { transition-delay: 350ms; }
+
+      .drawer-card
+      {
+        transform: translateY(16px);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(.2,.8,.2,1) 360ms, opacity 0.4s ease 360ms;
+      }
+
+      #mobile-drawer.open .drawer-card
+      {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* Custom Radio/Checkbox */
+      .custom-radio:checked+div
+      {
+        border-color: #678F07;
+        background-color: #678F0710;
+      }
+
+      .custom-radio:checked+div .radio-dot
+      {
+        background-color: #678F07;
+        border-color: #678F07;
+      }
+    </style>
+    <style data-grapesjs-styles="true">
+      #mobile-drawer
+      {
+        transform: translateX(-105%);
+        transition-behavior: normal;
+        transition-duration: 0.42s;
+        transition-timing-function: cubic-bezier(.2,.8,.2,1);
+        transition-delay: 0s;
+        transition-property: transform;
+      }
+
+      #drawer-overlay
+      {
+        opacity: 0;
+        pointer-events: none;
+        transition-behavior: normal;
+        transition-duration: 0.32s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+        transition-property: opacity;
+      }
+    </style>
+  </head>
+
+  <body
+    class="antialiased min-h-screen flex flex-col relative bg-bg pb-20 lg:pb-0">
+    <!-- Top Navigation Header -->
+    <header id="header"
+      class="sticky top-0 z-40 bg-bg/90 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-primary/10">
+      <div class="flex items-center gap-3"><button id="menu-btn"
+          class="w-10 h-10 rounded-xl bg-white border border-gray-200/60 flex items-center justify-center text-dark hover:bg-gray-50 transition-colors shadow-sm lg:hidden"><i
+            class="fa-solid fa-bars"></i></button>
+        <div class="text-lg font-bold tracking-tight text-primary">WASABI SUSHI
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div
+          class="hidden lg:flex items-center gap-1 bg-white px-3 py-1.5 rounded-full border border-gray-200/60 shadow-sm mr-4 cursor-pointer hover:bg-gray-50 transition-colors">
+          <i class="fa-solid fa-location-dot text-primary text-sm"></i><span
+            class="text-sm font-medium">ул. Амира Темура, 14</span><i
+            class="fa-solid fa-chevron-down text-xs text-dark/50 ml-1"></i>
+        </div><button
+          class="w-10 h-10 rounded-xl bg-white border border-gray-200/60 flex items-center justify-center text-dark hover:bg-gray-50 transition-colors shadow-sm"><i
+            class="fa-regular fa-bell"></i></button>
+      </div>
+    </header><!-- Drawer Navigation (Mobile & Tablet) -->
+    <div id="drawer-overlay" class="fixed inset-0 bg-dark/55 backdrop-blur-[2px] z-50 lg:hidden">
+    </div>
+    <div id="mobile-drawer"
+      class="fixed top-0 left-0 h-full w-[88vw] max-w-[340px] bg-bg z-50 shadow-2xl flex flex-col lg:hidden rounded-r-[28px] overflow-hidden">
+      <div class="p-4">
+        <div
+          class="rounded-[24px] bg-gradient-to-br from-white to-primary/10 border border-white shadow-xl shadow-dark/5 px-4 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-3"><img src="../logo.png"
+              onerror="this.style.display='none'"
+              class="w-12 h-12 rounded-2xl object-cover shadow-sm">
+            <div>
+              <div class="text-lg font-black tracking-tight text-primary leading-none">
+                WASABI SUSHI</div>
+              <div class="text-xs font-semibold text-dark/45 mt-1">Fresh sushi</div>
+            </div>
+          </div><button id="close-drawer-btn"
+            class="w-11 h-11 rounded-full bg-dark/5 flex items-center justify-center text-dark hover:bg-primary hover:text-white transition-all active:scale-95"><i
+              class="fa-solid fa-xmark text-xl"></i></button>
+        </div>
+      </div>
+      <div class="px-4 pb-3 flex-1 overflow-y-auto hide-scrollbar">
+        <nav class="flex flex-col gap-2"><a href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-primary text-white font-black shadow-lg shadow-primary/25"><span
+              class="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center"><i
+                class="fa-solid fa-house text-lg"></i></span><span class="flex-1">Asosiy</span><i
+              class="fa-solid fa-chevron-right text-white/80 text-sm"></i></a><a href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-utensils text-lg"></i></span><span>Menyu</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-bag-shopping text-lg"></i></span><span class="flex-1">Savat</span><span
+              class="min-w-7 h-7 px-2 rounded-full bg-secondary text-white text-xs flex items-center justify-center">0</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-receipt text-lg"></i></span><span>Buyurtmalar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-tag text-lg"></i></span><span>Aksiyalar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-shop text-lg"></i></span><span>Filiallar</span></a><a
+            href="#"
+            class="drawer-link group flex items-center gap-3 px-3 py-3 rounded-2xl bg-white border border-primary/10 text-dark hover:bg-primary/10 hover:text-primary font-black transition-all"><span
+              class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-white"><i
+                class="fa-solid fa-headset text-lg"></i></span><span>Aloqa</span></a>
+        </nav>
+      </div>
+    </div><!-- Main Content Area -->
+    <div class="flex-1 flex w-full max-w-7xl mx-auto">
+      <!-- Desktop Sidebar (Hidden on Mobile) -->
+      <aside
+        class="hidden lg:flex flex-col w-64 bg-white/50 backdrop-blur-sm border-r border-primary/10 sticky top-[65px] h-[calc(100vh-65px)]">
+        <nav class="flex-1 overflow-y-auto p-4 flex flex-col gap-1"><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-house w-5 text-center"></i><span>Главная</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-bars-staggered w-5 text-center"></i><span>Каталог</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-magnifying-glass w-5 text-center"></i><span>Поиск</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white font-medium shadow-md shadow-primary/20"><i
+              class="fa-solid fa-bag-shopping w-5 text-center"></i><span>Корзина</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-receipt w-5 text-center"></i><span>Мои
+              заказы</span></a><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-tag w-5 text-center text-secondary"></i><span>Акции</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-shop w-5 text-center"></i><span>Филиалы</span></a><a
+            href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark hover:bg-white font-medium transition-colors"><i
+              class="fa-regular fa-user w-5 text-center"></i><span>Профиль</span></a>
+          <div class="h-px bg-primary/10 my-2"></div><a href="#"
+            class="flex items-center gap-3 px-4 py-3 rounded-xl text-dark/70 hover:bg-white font-medium transition-colors"><i
+              class="fa-solid fa-shield-halved w-5 text-center"></i><span>Админ-панель</span></a>
+        </nav>
+      </aside><!-- Main Content (Checkout) -->
+      <main class="flex-1 flex flex-col p-4 lg:p-8">
+        <div class="flex items-center gap-3 mb-6"><button
+            class="w-10 h-10 rounded-xl bg-white border border-gray-200/60 flex items-center justify-center text-dark hover:bg-gray-50 transition-colors shadow-sm"><i
+              class="fa-solid fa-arrow-left"></i></button>
+          <h1 class="text-2xl lg:text-3xl font-bold text-dark">Оформление заказа
+          </h1>
+        </div>
+        <div class="flex flex-col xl:flex-row gap-6 lg:gap-8">
+          <!-- Left Side: Forms -->
+          <div class="flex-1 flex flex-col gap-6">
+            <!-- 1. Receiving Method -->
+            <section
+              class="bg-white rounded-2xl p-5 lg:p-6 shadow-sm border border-gray-100">
+              <h2 class="text-lg font-bold text-dark mb-4">1. Способ получения
+              </h2>
+              <div class="grid grid-cols-2 gap-3"><label
+                  class="relative cursor-pointer"><input type="radio"
+                    name="delivery_method" checked=""
+                    class="custom-radio peer sr-only">
+                  <div
+                    class="p-4 rounded-xl border-2 border-gray-100 transition-all flex flex-col items-center justify-center gap-2 hover:bg-gray-50 h-full">
+                    <i
+                      class="fa-solid fa-motorcycle text-2xl text-dark/60 peer-checked:text-primary"></i><span
+                      class="font-medium text-sm text-center text-dark">Доставка</span>
+                  </div>
+                </label><label class="relative cursor-pointer"><input
+                    type="radio" name="delivery_method"
+                    class="custom-radio peer sr-only">
+                  <div
+                    class="p-4 rounded-xl border-2 border-gray-100 transition-all flex flex-col items-center justify-center gap-2 hover:bg-gray-50 h-full">
+                    <i
+                      class="fa-solid fa-store text-2xl text-dark/60 peer-checked:text-primary"></i><span
+                      class="font-medium text-sm text-center text-dark">Самовывоз</span><span
+                      class="text-[10px] text-secondary font-bold absolute top-2 right-2 bg-secondary/10 px-1.5 py-0.5 rounded">-10%</span>
+                  </div>
+                </label></div>
+            </section><!-- 2. Address Details -->
+            <section
+              class="bg-white rounded-2xl p-5 lg:p-6 shadow-sm border border-gray-100">
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-dark">2. Адрес доставки</h2>
+                <button
+                  class="text-primary text-sm font-medium hover:underline">Мои
+                  адреса</button>
+              </div>
+              <div class="space-y-4">
+                <div class="relative"><i
+                    class="fa-solid fa-location-dot absolute left-4 top-1/2 -translate-y-1/2 text-dark/40"></i><input
+                    type="text" value="ул. Амира Темура, 14"
+                    class="w-full h-12 bg-gray-50 rounded-xl pl-10 pr-4 text-sm font-medium outline-none border border-gray-200 focus:border-primary focus:bg-white transition-all">
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                  <div><input type="text" placeholder="Подъезд"
+                      class="w-full h-12 bg-gray-50 rounded-xl px-4 text-sm font-medium outline-none border border-gray-200 focus:border-primary focus:bg-white transition-all placeholder-dark/30">
+                  </div>
+                  <div><input type="text" placeholder="Этаж"
+                      class="w-full h-12 bg-gray-50 rounded-xl px-4 text-sm font-medium outline-none border border-gray-200 focus:border-primary focus:bg-white transition-all placeholder-dark/30">
+                  </div>
+                  <div><input type="text" placeholder="Квартира"
+                      class="w-full h-12 bg-gray-50 rounded-xl px-4 text-sm font-medium outline-none border border-gray-200 focus:border-primary focus:bg-white transition-all placeholder-dark/30">
+                  </div>
+                </div>
+                <div>
+                  <textarea placeholder="Комментарий к заказу (код домофона, сдача с...)" class="w-full bg-gray-50 rounded-xl p-4 text-sm font-medium outline-none border border-gray-200 focus:border-primary focus:bg-white transition-all placeholder-dark/30 resize-none h-24"></textarea>
+                </div>
+              </div>
+            </section><!-- 3. Time -->
+            <section
+              class="bg-white rounded-2xl p-5 lg:p-6 shadow-sm border border-gray-100">
+              <h2 class="text-lg font-bold text-dark mb-4">3. Время доставки
+              </h2>
+              <div class="grid grid-cols-2 gap-3"><label
+                  class="relative cursor-pointer"><input type="radio"
+                    name="delivery_time" checked=""
+                    class="custom-radio peer sr-only">
+                  <div
+                    class="p-3 rounded-xl border-2 border-gray-100 transition-all flex items-center gap-3 hover:bg-gray-50">
+                    <div
+                      class="w-5 h-5 rounded-full border-2 border-gray-300 radio-dot flex items-center justify-center">
+                      <div class="w-2 h-2 rounded-full bg-white"></div>
+                    </div><span class="font-medium text-sm text-dark">Как можно
+                      скорее</span>
+                  </div>
+                </label><label class="relative cursor-pointer"><input
+                    type="radio" name="delivery_time"
+                    class="custom-radio peer sr-only">
+                  <div
+                    class="p-3 rounded-xl border-2 border-gray-100 transition-all flex items-center gap-3 hover:bg-gray-50">
+                    <div
+                      class="w-5 h-5 rounded-full border-2 border-gray-300 radio-dot flex items-center justify-center">
+                      <div class="w-2 h-2 rounded-full bg-white"></div>
+                    </div><span class="font-medium text-sm text-dark">Ко
+                      времени</span>
+                  </div>
+                </label></div>
+            </section><!-- 4. Payment Method -->
+            <section
+              class="bg-white rounded-2xl p-5 lg:p-6 shadow-sm border border-gray-100">
+              <h2 class="text-lg font-bold text-dark mb-4">4. Способ оплаты</h2>
+              <div class="space-y-3"><label
+                  class="relative cursor-pointer block"><input type="radio"
+                    name="payment_method" checked=""
+                    class="custom-radio peer sr-only">
+                  <div
+                    class="p-4 rounded-xl border-2 border-gray-100 transition-all flex items-center justify-between hover:bg-gray-50">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-dark/70">
+                        <i class="fa-solid fa-credit-card"></i></div><span
+                        class="font-medium text-sm text-dark">Онлайн оплата
+                        (Click / Payme)</span>
+                    </div>
+                    <div
+                      class="w-5 h-5 rounded-full border-2 border-gray-300 radio-dot flex items-center justify-center">
+                      <div class="w-2 h-2 rounded-full bg-white"></div>
+                    </div>
+                  </div>
+                </label><label class="relative cursor-pointer block"><input
+                    type="radio" name="payment_method"
+                    class="custom-radio peer sr-only">
+                  <div
+                    class="p-4 rounded-xl border-2 border-gray-100 transition-all flex items-center justify-between hover:bg-gray-50">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-dark/70">
+                        <i class="fa-solid fa-money-bill-wave"></i></div><span
+                        class="font-medium text-sm text-dark">Наличными при
+                        получении</span>
+                    </div>
+                    <div
+                      class="w-5 h-5 rounded-full border-2 border-gray-300 radio-dot flex items-center justify-center">
+                      <div class="w-2 h-2 rounded-full bg-white"></div>
+                    </div>
+                  </div>
+                </label><label class="relative cursor-pointer block"><input
+                    type="radio" name="payment_method"
+                    class="custom-radio peer sr-only">
+                  <div
+                    class="p-4 rounded-xl border-2 border-gray-100 transition-all flex items-center justify-between hover:bg-gray-50">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-dark/70">
+                        <i class="fa-regular fa-credit-card"></i></div><span
+                        class="font-medium text-sm text-dark">Картой курьеру
+                        (Терминал)</span>
+                    </div>
+                    <div
+                      class="w-5 h-5 rounded-full border-2 border-gray-300 radio-dot flex items-center justify-center">
+                      <div class="w-2 h-2 rounded-full bg-white"></div>
+                    </div>
+                  </div>
+                </label></div>
+            </section>
+          </div><!-- Right Side: Order Summary -->
+          <div class="w-full xl:w-[380px] shrink-0">
+            <div
+              class="bg-white rounded-2xl p-5 lg:p-6 shadow-sm border border-gray-100 sticky top-[80px]">
+              <h3 class="font-bold text-dark text-lg mb-4">Ваш заказ</h3>
+              <!-- Mini Cart Items -->
+              <div
+                class="space-y-3 mb-5 max-h-48 overflow-y-auto pr-2 hide-scrollbar">
+                <div
+                  class="flex justify-between items-start text-sm border-b border-gray-50 pb-2">
+                  <div class="flex gap-2"><span
+                      class="font-medium text-dark/60 w-4">1x</span><span
+                      class="text-dark font-medium leading-tight">Филадельфия
+                      классик</span></div><span
+                    class="font-medium text-dark shrink-0">68 000 сум</span>
+                </div>
+                <div
+                  class="flex justify-between items-start text-sm border-b border-gray-50 pb-2">
+                  <div class="flex gap-2"><span
+                      class="font-medium text-dark/60 w-4">2x</span><span
+                      class="text-dark font-medium leading-tight">Калифорния с
+                      лососем</span></div><span
+                    class="font-medium text-dark shrink-0">112 000 сум</span>
+                </div>
+              </div>
+              <div class="space-y-3 mb-5">
+                <div class="flex justify-between items-center text-sm"><span
+                    class="text-dark/70">Товары (3 шт)</span><span
+                    class="font-medium text-dark">180 000 сум</span></div>
+                <div class="flex justify-between items-center text-sm"><span
+                    class="text-secondary font-medium">Скидка</span><span
+                    class="font-bold text-secondary">-18 000 сум</span></div>
+                <div class="flex justify-between items-center text-sm"><span
+                    class="text-dark/70">Доставка</span><span
+                    class="font-medium text-dark">15 000 сум</span></div>
+              </div>
+              <div class="h-px bg-gray-100 mb-4"></div>
+              <div class="flex justify-between items-end mb-6"><span
+                  class="font-bold text-dark text-base">Итого к
+                  оплате</span><span
+                  class="font-bold text-2xl text-primary leading-none">177 000
+                  <span class="text-sm font-normal">сум</span></span></div>
+              <button
+                class="w-full h-14 bg-primary text-white rounded-xl font-bold text-base hover:bg-primary/90 transition-colors shadow-lg shadow-primary/30 flex justify-center items-center gap-2"><span>Подтвердить
+                  заказ</span><i class="fa-solid fa-check"></i></button>
+              <p class="text-center text-[10px] text-dark/40 mt-3">
+                Нажимая кнопку, вы соглашаетесь с правилами сервиса
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div><!-- Mobile Bottom Navigation -->
+    <nav
+      class="fixed bottom-0 w-full bg-white border-t border-gray-200 flex justify-around items-center pb-safe pt-2 px-2 z-40 lg:hidden shadow-[0_-4px_10px_rgba(0,0,0,0.02)]">
+      <a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-solid fa-house text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Главная</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-solid fa-bars-staggered text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Каталог</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-primary transition-colors relative">
+        <div class="relative"><i
+            class="fa-solid fa-bag-shopping text-xl mb-1"></i><span
+            class="absolute -top-1 -right-2 w-4 h-4 bg-secondary text-white text-[9px] font-bold flex items-center justify-center rounded-full border-2 border-white">3</span>
+        </div><span class="text-[10px] font-bold">Корзина</span>
+      </a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-solid fa-receipt text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Заказы</span></a><a href="#"
+        class="flex flex-col items-center p-2 text-dark/40 hover:text-dark transition-colors"><i
+          class="fa-regular fa-user text-xl mb-1"></i><span
+          class="text-[10px] font-medium">Профиль</span></a></nav>
+    <script>
+      // Drawer Logic
+      const menuBtn = document.getElementById('menu-btn');
+      const closeDrawerBtn = document.getElementById('close-drawer-btn');
+      const drawer = document.getElementById('mobile-drawer');
+      const overlay = document.getElementById('drawer-overlay');
+
+      function toggleDrawer()
+      {
+        drawer.classList.toggle('open');
+        overlay.classList.toggle('open');
+        document.body.style.overflow = drawer.classList.contains('open') ?
+          'hidden' : '';
+      }
+
+      if (menuBtn) menuBtn.addEventListener('click', toggleDrawer);
+      if (closeDrawerBtn) closeDrawerBtn.addEventListener('click',
+        toggleDrawer);
+      if (overlay) overlay.addEventListener('click', toggleDrawer);
+    </script>
+  </body>
+
+</html>
